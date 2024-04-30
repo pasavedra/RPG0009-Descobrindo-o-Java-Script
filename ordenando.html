@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="ordenando.js"></script>
+  <title>Ordenando Valores</title>
+  <style>
+    body{
+        padding: 20px;
+        margin: 0;
+        }
+    select{
+        width: 508px;
+        height: 40px;
+        border-radius: 5px;
+      }
+
+    input{
+        width: 500px;
+        height: 35px;
+        border-radius: 5px;
+      }
+        
+    button{
+        line-height: 2.5;
+        height: 35px;
+        width: 90px;
+        color: white;
+        border-radius: 5px;
+        background-color: blue
+    }
+   
+  </style>  
+</head>
+
+<body>
+  <h1>Ordenando Valores</h1>
+  <label for="valor">Valor</label><br>
+  <input type="number" id="valor"><br><br>
+  <button onclick="add()">Adicionar</button><br><br><hr/>
+
+  <label for="algoritmo"></label><br>
+  <select id="algoritmo">
+    <option value="bubble">Bubble Sort</option>
+    <option value="selection">Selection Sort</option>
+    <option value="quick">Quick Sort</option>
+  </select><br><br>
+
+  <button onclick="ordenar()">Ordenar</button>
+  <button onclick="misturar()">Misturar</button><hr/>
+
+  <ul id="valores"></ul>
+
+  <script>
+    function add() {
+      const valorInput = document.getElementById('valor');
+      const valoresLista = document.getElementById('valores');
+      const valor = parseInt(valorInput.value);
+      if (!isNaN(valor)) {
+        const elementoLi = document.createElement('li');
+        const textoValor = document.createTextNode(valor);
+        elementoLi.appendChild(textoValor);
+        valoresLista.appendChild(elementoLi);
+        valorInput.value = '';
+      }
+    }
+
+    function ordenar() {
+      const valoresLista = document.getElementById('valores');
+      const algoritmoSelecionado = document.getElementById('algoritmo').value;
+      const valores = Array.from(valoresLista.children).map((item) => parseInt(item.innerHTML));
+
+      if (algoritmoSelecionado === 'bubble') {
+        bubble_sort(valores);
+      } else if (algoritmoSelecionado === 'selection') {
+        selection_sort(valores);
+      } else if (algoritmoSelecionado === 'quick') {
+        quick_sort(valores);
+      }
+
+      valoresLista.innerHTML = valores.map((item) => `<li>${item}</li>`).join('');
+    }
+
+    function misturar() {
+      const valoresLista = document.getElementById('valores');
+      const valores = Array.from(valoresLista.children).map((item) => parseInt(item.innerHTML));
+      embaralhar(valores, valores.length * 2);
+      valoresLista.innerHTML = valores.map((item) => `<li>${item}</li>`).join('');
+    }
+  </script>
+</body>
+</html>

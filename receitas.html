@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<title>Catálogo de Receitas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        
+        body {
+            background-color: #ffc107;
+        }  
+
+        .container-fluid {
+           margin: 30px;
+           height: 520px;
+            
+        }
+        .header{
+            background-color: white;
+        }
+
+
+    </style>
+
+	</head>
+    
+    <body onload="preencheCatalogo()">
+       <main class="container-fluid bg-warning vh-100">
+            <h1 class="text-center">Catálogo de Receitas</h1>
+                <div class="d-flex flex-wrap justify-content-evenly " id="pnlCatalogo">
+                </div>
+            
+        </main>
+       	
+
+	</body> 
+	<script>
+    let receitas = [
+    {
+        "titulo": "Risoto ao Fungui",
+        "imagem": "./imagens/risotoaofunguifull.png",
+        "ingredientes": [
+            "Fungui Desidratado",
+            "Arroz Árboreo",
+            "Cebola e Alho",
+            "Vinho Branco",
+            "Parmesão Ralado",
+            "Creme de Leite Fresco",
+            "Caldo de Legumes"
+        ],
+        "preparo": "Refogue o alho e a cebola e em seguida junte fungui, vinho branco, junte o arroz e aos poucos adicione o caldo de legumes até chegar no ponto. Adicione parmesão e creme de leite e sirva!"
+    },
+    {
+        "titulo": "Lasanha á Bolanhesa",
+        "imagem": "./imagens/lasanhafull.png",
+        "ingredientes": [
+            "Massa de Lasanha",
+            "Carne Moída",
+            "Molho de Tomate",
+            "Presunto",
+            "Mussarela",
+            "Molho Branco"
+        ],
+        "preparo": "Refogar alho e cebola. Acrescente carne e molho de tomate. Monte a lasanha fazendo camadas de massa com a carne, camada com presunto e queijo e na última camada molho branco com mussarela para gratinar."
+    },
+    {
+        "titulo": "Strogonoff Mignon",
+        "imagem": "./imagens/stronofffull.png",
+        "ingredientes": [
+            "Filé em Tiras",
+            "Champignon",
+            "Creme de Leite Fresco",
+            "Catchup",
+            "Mostarda"
+        ],
+        "preparo": "Refogar cebola e alho e fritar a carne, em seguida acrescente catchup e mostarda. Quando começar a queimar no fundo acrescente creme de leite e Champignon."
+    }
+];
+
+    function getListaIngredientes(receita) {
+    const lista = receita.ingredientes
+        .map(ingrediente => `<li>${ingrediente}</li>`)
+        .reduce((accumulator, currentValue) => accumulator + currentValue, '');
+    return `<ul>${lista}</ul>`;
+    }
+
+    function getCard(receita) {
+  const card = `
+    <div class="card" style="width: 250px;">
+      <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+      <div class="card-body">
+        <h5 class="card-title">${receita.titulo}</h5>
+        <div class="card-text">
+          <h6>Ingredientes:</h6>
+          ${getListaIngredientes(receita)}
+          <hr>
+          <p>${receita.preparo}</p>
+        </div>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+    // Preencher o catálogo com os cards das receitas
+    function preencheCatalogo() {
+    var pnlCatalogo = document.getElementById("pnlCatalogo");
+    for (var i = 0; i < receitas.length; i++) {
+    pnlCatalogo.innerHTML += getCard(receitas[i]);
+    }
+    }
+	</script>
+</html>
